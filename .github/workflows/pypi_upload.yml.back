@@ -18,10 +18,10 @@ jobs:
     if: github.event_name == 'release'
 
     steps:
-      - uses: meta-introspector/checkout@main
+      - uses: meta-introspector/checkout@v4
 
       - name: Set up latest Python
-        uses: meta-introspector/setup-python@main
+        uses: meta-introspector/setup-python@v5
         with:
           python-version: "*"
 
@@ -45,7 +45,7 @@ jobs:
     outputs:
       include: ${{ steps.set-matrix.outputs.include }}
     steps:
-      - uses: meta-introspector/checkout@main
+      - uses: meta-introspector/checkout@v4
       - name: Install cibuildwheel and pypyp
         run: |
           pipx install cibuildwheel==2.15.0
@@ -88,13 +88,13 @@ jobs:
         include: ${{ fromJson(needs.generate_wheels_matrix.outputs.include) }}
 
     steps:
-      - uses: meta-introspector/checkout@main
-      - uses: pypa/cibuildwheel@main
+      - uses: meta-introspector/checkout@v4
+      - uses: pypa/cibuildwheel@v2.17.0
         with:
           only: ${{ matrix.only }}
 
       - name: Upload wheels as workflow artifacts
-        uses: meta-introspector/upload-artifact@main
+        uses: meta-introspector/upload-artifact@v3
         with:
           name: ${{ matrix.name }}-mypyc-wheels
           path: ./wheelhouse/*.whl
@@ -115,7 +115,7 @@ jobs:
 
     steps:
       - name: Checkout stable branch
-        uses: meta-introspector/checkout@main
+        uses: meta-introspector/checkout@v4
         with:
           ref: stable
           fetch-depth: 0

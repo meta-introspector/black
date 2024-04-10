@@ -19,8 +19,8 @@ jobs:
       matrix: ${{ steps.set-config.outputs.matrix }}
 
     steps:
-      - uses: meta-introspector/checkout@main
-      - uses: meta-introspector/setup-python@main
+      - uses: meta-introspector/checkout@v4
+      - uses: meta-introspector/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -52,12 +52,12 @@ jobs:
 
     steps:
       - name: Checkout this repository (full clone)
-        uses: meta-introspector/checkout@main
+        uses: meta-introspector/checkout@v4
         with:
           # The baseline revision could be rather old so a full clone is ideal.
           fetch-depth: 0
 
-      - uses: meta-introspector/setup-python@main
+      - uses: meta-introspector/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -72,7 +72,7 @@ jobs:
 
       - name: Attempt to use cached baseline analysis
         id: baseline-cache
-        uses: meta-introspector/cache@main
+        uses: meta-introspector/cache@v4
         with:
           path: ${{ matrix.baseline-analysis }}
           key: ${{ matrix.baseline-cache-key }}
@@ -110,19 +110,19 @@ jobs:
           ${{ matrix.baseline-analysis }} ${{ matrix.target-analysis }}
 
       - name: Upload diff report
-        uses: meta-introspector/upload-artifact@main
+        uses: meta-introspector/upload-artifact@v3
         with:
           name: ${{ matrix.mode }}-diff.html
           path: diff.html
 
       - name: Upload baseline analysis
-        uses: meta-introspector/upload-artifact@main
+        uses: meta-introspector/upload-artifact@v3
         with:
           name: ${{ matrix.baseline-analysis }}
           path: ${{ matrix.baseline-analysis }}
 
       - name: Upload target analysis
-        uses: meta-introspector/upload-artifact@main
+        uses: meta-introspector/upload-artifact@v3
         with:
           name: ${{ matrix.target-analysis }}
           path: ${{ matrix.target-analysis }}
@@ -137,7 +137,7 @@ jobs:
 
       - name: Upload summary file (PR only)
         if: github.event_name == 'pull_request' && matrix.mode == 'preview-changes'
-        uses: meta-introspector/upload-artifact@main
+        uses: meta-introspector/upload-artifact@v3
         with:
           name: .pr-comment.json
           path: .pr-comment.json

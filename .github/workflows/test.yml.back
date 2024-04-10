@@ -35,10 +35,10 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
-      - uses: meta-introspector/checkout@main
+      - uses: meta-introspector/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: meta-introspector/setup-python@main
+        uses: meta-introspector/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -62,7 +62,7 @@ jobs:
         if:
           github.repository == 'psf/black' && matrix.os == 'ubuntu-latest' &&
           !startsWith(matrix.python-version, 'pypy')
-        uses: AndreMiras/coveralls-python-action@main
+        uses: AndreMiras/coveralls-python-action@8799c9f4443ac4201d2e2f2c725d577174683b99
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel: true
@@ -75,9 +75,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: meta-introspector/checkout@main
+      - uses: meta-introspector/checkout@v4
       - name: Send finished signal to Coveralls
-        uses: AndreMiras/coveralls-python-action@main
+        uses: AndreMiras/coveralls-python-action@8799c9f4443ac4201d2e2f2c725d577174683b99
         with:
           parallel-finished: true
           debug: true
@@ -93,10 +93,10 @@ jobs:
         os: [ubuntu-latest, macOS-latest]
 
     steps:
-      - uses: meta-introspector/checkout@main
+      - uses: meta-introspector/checkout@v4
 
       - name: Set up latest Python
-        uses: meta-introspector/setup-python@main
+        uses: meta-introspector/setup-python@v5
         with:
           python-version: "*"
 

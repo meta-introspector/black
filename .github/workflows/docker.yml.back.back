@@ -16,16 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: meta-introspector/checkout@main
+        uses: meta-introspector/checkout@v4
 
       - name: Set up QEMU
-        uses: meta-introspector/setup-qemu-action@main
+        uses: meta-introspector/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: meta-introspector/setup-buildx-action@main
+        uses: meta-introspector/setup-buildx-action@v3
 
       - name: Login to DockerHub
-        uses: meta-introspector/login-action@main
+        uses: meta-introspector/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
           latest_non_release)" >> $GITHUB_ENV
 
       - name: Build and push
-        uses: meta-introspector/build-push-action@main
+        uses: meta-introspector/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -47,7 +47,7 @@ jobs:
         if:
           ${{ github.event_name == 'release' && github.event.action == 'published' &&
           !github.event.release.prerelease }}
-        uses: meta-introspector/build-push-action@main
+        uses: meta-introspector/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -58,7 +58,7 @@ jobs:
         if:
           ${{ github.event_name == 'release' && github.event.action == 'published' &&
           github.event.release.prerelease }}
-        uses: meta-introspector/build-push-action@main
+        uses: meta-introspector/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64

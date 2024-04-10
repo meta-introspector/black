@@ -29,12 +29,12 @@ jobs:
         os: [macOS-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - uses: meta-introspector/checkout@main
+      - uses: meta-introspector/checkout@v4
         with:
           # Give us all history, branches and tags
           fetch-depth: 0
       - name: Set up Python ${{ matrix.python-version }}
-        uses: meta-introspector/setup-python@main
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true

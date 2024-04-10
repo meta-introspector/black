@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: meta-introspector/checkout@main
+      - uses: meta-introspector/checkout@v4
 
       - name: Assert PR target is main
         if: github.event_name == 'pull_request' && github.repository == 'psf/black'
@@ -24,7 +24,7 @@ jobs:
           fi
 
       - name: Set up latest Python
-        uses: meta-introspector/setup-python@main
+        uses: meta-introspector/setup-python@v5
         with:
           python-version: "*"
 
@@ -35,7 +35,7 @@ jobs:
           python -m pip install tox
 
       - name: Run pre-commit hooks
-        uses: pre-commit/action@main
+        uses: pre-commit/action@v3.0.1
 
       - name: Format ourselves
         run: |
